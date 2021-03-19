@@ -235,34 +235,22 @@ if (isset($_GET['apicall'])) {
 
 
             break;
-
-        /*-------------------------------------------Delete category--------------------------------------------------*/
-
-        case 'delete_category':
-
-
-            isTheseParametersAvailable(array('category_id'));
-
-            //creating a new dboperation object
+        /*-------------------------------------------Update Category--------------------------------------------------*/
+        case 'update_category':
+            isTheseParametersAvailable(array('category_id', 'categories_name'));
             $db = new DbOperation();
-
             //creating a new record in the database
-            $result = $db->DeleteCategory($_POST['category_id']);
+            $result = $db->UpdateCategory($_POST['category_id'], $_POST['categories_name']);
 
             if ($result) {
-
                 $response['error'] = false;
-                $response['message'] = 'Category delete successfully';
-
+                $response['message'] = 'Category update successfully';
             } else {
-
                 $response['error'] = true;
                 $response['message'] = 'Something went wrong!!';
             }
 
             break;
-
-
         /*-----------------------------------------------------CATEGORY VALUE----------------------------------------------------------*/
         case 'get_categoryval':
 

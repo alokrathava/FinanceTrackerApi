@@ -244,21 +244,13 @@ class DbOperation
             $inner['categories_name'] = $row['categories_name'];
             array_push($outer, $inner);
         }
-
         return $outer;
-
-
     }
 
-    /*-------------------------------------delete category------------*/
-
-    function DeleteCategory($category_id)
+    /*-------------------------------------Update Category------------------------------------------------------------*/
+    function UpdateCategory($category_id, $categories_name)
     {
-
-
-        // DELETE FROM `category` WHERE category_id = $category_id
-
-        $stmt = "DELETE FROM `category` WHERE category_id = '$category_id'";
+        $stmt = "UPDATE category SET categories_name='$categories_name' WHERE category_id='$category_id'";
 
         $result = mysqli_query($this->con, $stmt);
 
