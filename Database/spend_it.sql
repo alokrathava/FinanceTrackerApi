@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2021 at 07:16 AM
+-- Generation Time: Mar 23, 2021 at 11:37 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -53,9 +53,15 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`category_id`, `categories_name`, `u_id`) VALUES
 (1, 'Petrol', 1),
 (2, 'Food', 1),
-(3, 'Electric', 1),
+(3, 'Money', 1),
 (4, 'Tickets', 1),
-(5, 'Shopping', 1);
+(5, 'Shopping', 1),
+(6, 'Movies', 1),
+(7, 'Petrol', 3),
+(8, 'Total', 3),
+(9, 'by', 1),
+(10, 'guuf', 1),
+(11, 'budy', 1);
 
 -- --------------------------------------------------------
 
@@ -76,11 +82,15 @@ CREATE TABLE `category_set_amount` (
 --
 
 INSERT INTO `category_set_amount` (`set_amount_id`, `category_id`, `amount_set`, `user_id`, `created_at`) VALUES
-(1, 2, 2000, 1, '2021-03-13 05:37:39'),
+(1, 2, 10000, 1, '2021-03-13 05:37:39'),
 (2, 1, 1000, 1, '2021-03-13 07:13:34'),
 (3, 4, 500, 1, '2021-03-13 07:58:38'),
 (4, 3, 100, 1, '2021-03-13 07:58:53'),
-(5, 5, 1500, 1, '2021-03-13 08:00:27');
+(5, 5, 1500, 1, '2021-03-13 08:00:27'),
+(6, 6, 1000, 1, '2021-03-16 11:07:11'),
+(7, 7, 700, 3, '2021-03-16 11:09:19'),
+(8, 8, 100, 3, '2021-03-16 11:13:27'),
+(9, 11, 10, 1, '2021-03-23 04:50:40');
 
 -- --------------------------------------------------------
 
@@ -129,10 +139,12 @@ CREATE TABLE `set_amount` (
 --
 
 INSERT INTO `set_amount` (`amount_id`, `amount`, `category_id`, `set_amount_id`, `u_id`, `amt_date`) VALUES
-(1, 10, 3, 4, 1, '2021-03-13'),
-(2, 20, 3, 4, 1, '2021-03-13'),
-(3, 200, 1, 2, 1, '2021-03-13'),
-(4, 100, 3, 4, 1, '2021-03-15');
+(1, 150, 1, 2, 1, '2021-03-23'),
+(2, 280, 4, 3, 1, '2021-03-23'),
+(3, 200, 4, 3, 1, '2021-03-23'),
+(4, 55, 4, 3, 1, '2021-03-23'),
+(5, 150, 1, 2, 1, '2021-03-23'),
+(6, 150, 1, 2, 1, '2021-03-23');
 
 -- --------------------------------------------------------
 
@@ -167,7 +179,10 @@ CREATE TABLE `user_registration` (
 --
 
 INSERT INTO `user_registration` (`u_id`, `u_name`, `u_email`, `u_password`, `u_mob`) VALUES
-(1, 'Alok Rathava', 'alokrathava@gmail.com', 'admin123', 9512334819);
+(1, 'Alok Rathava', 'alokrathava@gmail.com', 'admin123', 9512334819),
+(2, 'Alok Rathava', 'alokrathava@gmail.com', 'admin', 951233819),
+(3, 'Hit Patel', 'hit@gmail.com', '12345678', 9696969699),
+(4, '1', '1', '1', 1);
 
 --
 -- Indexes for dumped tables
@@ -217,25 +232,25 @@ ALTER TABLE `user_registration`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `category_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `category_set_amount`
 --
 ALTER TABLE `category_set_amount`
-  MODIFY `set_amount_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `set_amount_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `set_amount`
 --
 ALTER TABLE `set_amount`
-  MODIFY `amount_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `amount_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `u_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `u_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

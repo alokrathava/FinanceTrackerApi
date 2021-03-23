@@ -302,7 +302,7 @@ if (isset($_GET['apicall'])) {
 
             break;
         /*-----------------------------------------------------Expense History Detail----------------------------------------------------------*/
-        case 'getExpenseDetail';
+        case 'getExpenseDetail':
             isTheseParametersAvailable(array('user_id', 'cat_id'));
             $db = new DbOperation();
 
@@ -310,6 +310,22 @@ if (isset($_GET['apicall'])) {
             $response['message'] = 'Success';
             $response['exdetails'] = $db->getExpenseDetail($_POST['user_id'], $_POST['cat_id']);
             break;
+        /*---------------------------------------------Expense Update------------------------------------------------------------*/
+        case 'updateExpense':
+            isTheseParametersAvailable(array('a_id', 'a_val'));
+            $db = new DbOperation();
+            $result = $db->UpdateExpense($_POST['a_id'], $_POST['a_val']);
+
+            if ($result) {
+                $response['error'] = false;
+                $response['message'] = 'Category update successfully';
+            } else {
+                $response['error'] = true;
+                $response['message'] = 'Something went wrong!!';
+            }
+
+            break;
+
     }
 
     echo json_encode($response);

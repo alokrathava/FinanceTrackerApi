@@ -277,11 +277,25 @@ class DbOperation
         $outer = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $inner = array();
+            $inner['amount_id'] = $row['amount_id'];
             $inner['amount'] = $row['amount'];
             $inner['amt_date'] = $row['amt_date'];
             array_push($outer, $inner);
         }
         return $outer;
+    }
+
+    /*---------------------------------------------Expense Update------------------------------------------------------------*/
+    function UpdateExpense($a_id, $a_val)
+    {
+        $stmt = "UPDATE set_amount SET amount='$a_val' WHERE amount_id='$a_id'";
+        $result = mysqli_query($this->con, $stmt);
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*-------------------------------------Update Category------------------------------------------------------------*/
