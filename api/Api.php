@@ -178,7 +178,7 @@ if (isset($_GET['apicall'])) {
             break;
 
 
-        /*-------------------------------Set  Amount---------------------------------*/
+        /*-------------------------------Set Budget Amount---------------------------------*/
 
         case 'setamount':
 
@@ -206,6 +206,34 @@ if (isset($_GET['apicall'])) {
                 $response['error'] = true;
                 $response['message'] = 'Something went wrong';
 
+            }
+
+            break;
+        /*-----------------------------------------Get BudgetAmount-----------------------------------------------------*/
+        case 'getbudget':
+
+            isTheseParametersAvailable(array('user_id'));
+            $db = new DbOperation();
+
+            $response['error'] = false;
+            $response['message'] = 'Success';
+            $response['Budget'] = $db->getBudgetData($_POST['user_id']);
+
+            break;
+        /*-----------------------------------------Get BudgetAmount-----------------------------------------------------*/
+        case 'update_budget':
+
+            isTheseParametersAvailable(array('budget_id', 'budget_Val'));
+            $db = new DbOperation();
+
+            $result = $db->UpdateBudget($_POST['budget_id'], $_POST['budget_Val']);
+
+            if ($result) {
+                $response['error'] = false;
+                $response['message'] = 'Budget Updated';
+            } else {
+                $response['error'] = true;
+                $response['message'] = 'Budget Not Update';
             }
 
             break;
@@ -273,7 +301,15 @@ if (isset($_GET['apicall'])) {
             $response['exphistory'] = $db->getExpenseData($_POST['user_id']);
 
             break;
+        /*-----------------------------------------------------Expense History Detail----------------------------------------------------------*/
+        case 'getExpenseDetail';
+            isTheseParametersAvailable(array('user_id', 'cat_id'));
+            $db = new DbOperation();
 
+            $response['error'] = false;
+            $response['message'] = 'Success';
+            $response['exdetails'] = $db->getExpenseDetail($_POST['user_id'], $_POST['cat_id']);
+            break;
     }
 
     echo json_encode($response);

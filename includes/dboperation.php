@@ -188,9 +188,31 @@ class DbOperation
             return 1;
         }
 
-    }    /*--------------------------------------Category set amount --------------------------------------*/
+    }
+
+    /*--------------------------------------Category Get Amount --------------------------------------*/
+    function getBudgetData($user_id)
+    {
+        $stmt = "SELECT category_set_amount.set_amount_id, category.categories_name, category_set_amount.amount_set FROM `category_set_amount` 
+                 JOIN category ON category.category_id = category_set_amount.category_id WHERE user_id='$user_id'";
+        $result = mysqli_query($this->con, $stmt);
+
+        $outer = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $inner = array();
+            $inner['set_amount_id'] = $row['set_amount_id'];
+            $inner['categories_name'] = $row['categories_name'];
+            $inner['amount_set'] = $row['amount_set'];
+            array_push($outer, $inner);
+        }
+
+        return $outer;
 
 
+    }
+
+    /*--------------------------------------Expense set amount --------------------------------------*/
     function CategoryExpensetAmount($category_id, $set_amount_id, $amount, $user_id)
     {
         $stmt = "INSERT INTO `set_amount`(`amount`, `category_id`, `set_amount_id`, `u_id`) VALUES('$amount','$category_id','$set_amount_id','$user_id')";
@@ -247,6 +269,21 @@ class DbOperation
         return $outer;
     }
 
+    /*---------------------------------------------Expense Detail------------------------------------------------------------*/
+    function getExpenseDetail($user_id, $cat_id)
+    {
+        $stmt = "SELECT * FROM `set_amount` WHERE category_id = '$cat_id' and u_id = '$user_id'";
+        $result = mysqli_query($this->con, $stmt);
+        $outer = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $inner = array();
+            $inner['amount'] = $row['amount'];
+            $inner['amt_date'] = $row['amt_date'];
+            array_push($outer, $inner);
+        }
+        return $outer;
+    }
+
     /*-------------------------------------Update Category------------------------------------------------------------*/
     function UpdateCategory($category_id, $categories_name)
     {
@@ -262,7 +299,18 @@ class DbOperation
 
     }
 
+    /*-------------------------------------Update Budget------------------------------------------------------------*/
+    function UpdateBudget($budget_id, $budget_Val)
+    {
+        $stmt = "UPDATE category_set_amount SET amount_set='$budget_Val' WHERE set_amount_id='$budget_id'";
 
+        $result = mysqli_query($this->con, $stmt);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 
