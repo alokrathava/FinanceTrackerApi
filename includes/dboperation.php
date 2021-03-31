@@ -325,6 +325,28 @@ class DbOperation
             return false;
         }
     }
+
+    /*-------------------------------------Forgot Password------------------------------------------------------------*/
+    function ForgotPassword($email, $password, $v_otp)
+    {
+        /*OTP MODULE*/
+//        $otp = rand(000000, 999999);
+        $otp = 123456;
+        if ($otp == $v_otp) {
+
+            $stmt = "UPDATE user_registration SET u_password='$password' WHERE u_email='$email'";
+
+            $result = mysqli_query($this->con, $stmt);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }
 
 

@@ -325,7 +325,19 @@ if (isset($_GET['apicall'])) {
             }
 
             break;
+        /*-----------------------------------------------Forgot Password----------------------------------------------------*/
+        case 'forgot_password':
+            isTheseParametersAvailable(array('u_email', 'new_password','otp'));
+            $db = new DbOperation();
+            $result = $db->ForgotPassword($_POST['u_email'], $_POST['new_password'],$_POST['otp']);
 
+            if ($result) {
+                $response['error'] = false;
+                $response['message'] = "Password Update Successfully";
+            } else {
+                $response['error'] = true;
+                $response['message'] = "SOME ERROR OCCURED";
+            }
     }
 
     echo json_encode($response);
