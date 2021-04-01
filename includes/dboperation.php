@@ -326,6 +326,42 @@ class DbOperation
         }
     }
 
+    /*-------------------------------------------------ResetBudget Using ML----------------------------------------------------*/
+    function ResetBudget($user_id)
+    {
+        $stmt = "UPDATE category_set_amount SET status='1' WHERE user_id='$user_id'";
+
+        $result = mysqli_query($this->con, $stmt);
+        if ($result) {
+//
+            $sql1 = 'SELECT sum(set_amt.amount) as amount, cat.category_id,cat.categories_name FROM
+            set_amount set_amt,category cat , category_set_amount cat_set
+            WHERE set_amt.category_id = cat.category_id and cat.category_id = cat_set.category_id and set_amt.u_id=' . $user_id . ' group by set_amt.category_id';
+
+            $r1 = mysqli_query($this->con, $sql1);
+
+            if ($r1->num_rows > 0) {
+                while ($ro = mysqli_fetch_array($r1)) {
+
+                    $amount_set = $ro['amount'];
+                    //     echo "====";
+                    $category_id = $ro['category_id'];
+
+                    $sql2 = "UPDATE category_set_amount SET amount_set = '$amount_set' WHERE user_id = '$user_id' AND category_id = '$category_id'";
+
+                    $r2 = mysqli_query($this->con, $sql2);
+
+
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /*-------------------------------------Forgot Password------------------------------------------------------------*/
     function ForgotPassword($email, $password, $v_otp)
     {

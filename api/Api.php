@@ -327,9 +327,9 @@ if (isset($_GET['apicall'])) {
             break;
         /*-----------------------------------------------Forgot Password----------------------------------------------------*/
         case 'forgot_password':
-            isTheseParametersAvailable(array('u_email', 'new_password','otp'));
+            isTheseParametersAvailable(array('u_email', 'new_password', 'otp'));
             $db = new DbOperation();
-            $result = $db->ForgotPassword($_POST['u_email'], $_POST['new_password'],$_POST['otp']);
+            $result = $db->ForgotPassword($_POST['u_email'], $_POST['new_password'], $_POST['otp']);
 
             if ($result) {
                 $response['error'] = false;
@@ -338,6 +338,23 @@ if (isset($_GET['apicall'])) {
                 $response['error'] = true;
                 $response['message'] = "SOME ERROR OCCURED";
             }
+
+            break;
+        /*-------------------------------------------------Reset Budget----------------------------------------------------*/
+        case 'resetBudget':
+            isTheseParametersAvailable(array('user_id'));
+            $db = new DbOperation();
+            $result = $db->ResetBudget($_POST['user_id']);
+
+            if ($result) {
+                $response['error'] = false;
+                $response['message'] = "Budget Reseted";
+            } else {
+                $response['error'] = true;
+                $response['message'] = "SOME ERROR OCCURED";
+            }
+
+            break;
     }
 
     echo json_encode($response);
