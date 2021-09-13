@@ -351,6 +351,9 @@ class DbOperation
 
                     $r2 = mysqli_query($this->con, $sql2);
 
+                    $sql3 = "UPDATE set_amount SET amount = '0' WHERE u_id = '$user_id' and category_id = '$category_id'";
+                    $r3 = mysqli_query($this->con, $sql3);
+
 
                 }
                 return true;

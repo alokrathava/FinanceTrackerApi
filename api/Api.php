@@ -348,7 +348,7 @@ if (isset($_GET['apicall'])) {
 
             if ($result) {
                 $response['error'] = false;
-                $response['message'] = "Budget Reseted";
+                $response['message'] = "Budget Updated";
             } else {
                 $response['error'] = true;
                 $response['message'] = "SOME ERROR OCCURED";
