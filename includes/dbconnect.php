@@ -1,9 +1,5 @@
 <?php 
 	
-	/*
-	* Created by Belal Khan
-	* website: www.simplifiedcoding.net 
-	*/
 	
 	//Class DbConnect
 	class DbConnect
